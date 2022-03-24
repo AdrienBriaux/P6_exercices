@@ -45,6 +45,7 @@ app.get('/api/stuff', (req, res, next) => {
         userId: 'qsomihvqios',
       },
     ];
+    
     res.status(200).json(stuff);
   });
 
