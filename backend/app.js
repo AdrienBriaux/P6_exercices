@@ -1,5 +1,5 @@
 const express = require('express');
-
+const Thing = require('./models/thing');
 const app = express();
 
 mongoose.connect('mongodb+srv://Ibanez:Ibanez@cluster0.fpqz2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -45,7 +45,7 @@ app.get('/api/stuff', (req, res, next) => {
         userId: 'qsomihvqios',
       },
     ];
-    
+
     res.status(200).json(stuff);
   });
 

@@ -8,4 +8,4 @@ const thingSchema = mongoose.Schema({
   price: { type: Number, required: true },
 });
 
-module.exports = mongoose.model('Appareils_photo', thingSchema);
+module.exports = mongoose.model('thing', thingSchema);
