@@ -2,6 +2,14 @@ const express = require('express');
 
 const app = express();
 
+mongoose.connect('mongodb+srv://Ibanez:Ibanez@cluster0.fpqz2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+const mongoose = require('mongoose');
+
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -17,7 +25,7 @@ app.use((req, res, next) => {
       message: 'Objet créé !'
     });
   });
-  
+
 app.get('/api/stuff', (req, res, next) => {
     const stuff = [
       {
