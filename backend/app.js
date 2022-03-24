@@ -45,6 +45,14 @@ app.use((req, res, next) => {
       .catch(error => res.status(400).json({ error }));
   });
 
+  // Supression d'un objet
+
+  app.delete('/api/stuff/:id', (req, res, next) => {
+    Thing.deleteOne({ _id: req.params.id })
+      .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+      .catch(error => res.status(400).json({ error }));
+  });
+
   // Chercher un seul objet
 
   app.get('/api/stuff/:id', (req, res, next) => {
