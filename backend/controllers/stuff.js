@@ -48,7 +48,7 @@ exports.modifyThing = (req, res, next) => {
     price: req.body.price,
     userId: req.body.userId
   });
-  Thing.updateOne({_id: req.params.id}, thing).then(
+  Thing.updateOne({ _id: req.params.id }, thing).then(
     () => {
       res.status(201).json({
         message: 'Thing updated successfully!'
@@ -64,19 +64,33 @@ exports.modifyThing = (req, res, next) => {
 };
 
 exports.deleteThing = (req, res, next) => {
-  Thing.deleteOne({_id: req.params.id}).then(
-    () => {
-      res.status(200).json({
-        message: 'Deleted!'
-      });
+  Thing.findOne({ _id: req.params.id }).then(
+    (thing) => {
+      if (!thing) {
+        res.status(404).json({
+          error: new Error('No such Thing!')
+        });
+      }
+      if (thing.userId !== req.auth.userId) {
+        res.status(400).json({
+          error: new Error('Unauthorized request!')
+        });
+      }
+      Thing.deleteOne({ _id: req.params.id }).then(
+        () => {
+          res.status(200).json({
+            message: 'Deleted!'
+          });
+        }
+      ).catch(
+        (error) => {
+          res.status(400).json({
+            error: error
+          });
+        }
+      );
     }
-  ).catch(
-    (error) => {
-      res.status(400).json({
-        error: error
-      });
-    }
-  );
+  )
 };
 
 exports.getAllStuff = (req, res, next) => {
