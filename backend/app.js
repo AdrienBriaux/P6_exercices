@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
+const path = require('path');
 
 // CORS
 
@@ -29,11 +30,13 @@ mongoose.connect('mongodb+srv://Ibanez:Ibanez@cluster0.fpqz2.mongodb.net/myFirst
 
 app.use(express.json());
 
-// Chemin routes vers stuff et authentification
+// Chemin routes vers stuff, authentification, images
 
 app.use('/api/stuff', stuffRoutes);
 
 app.use('/api/auth', userRoutes);
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 module.exports = app;
