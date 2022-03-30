@@ -3,6 +3,7 @@ const Thing = require('./models/Thing');
 const app = express();
 const mongoose = require('mongoose');
 const stuffRoutes = require('./routes/stuff');
+const userRoutes = require('./routes/user');
 
 // Connection à la data base
 
@@ -27,9 +28,11 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// Chemin routes vers stuff
+// Chemin routes vers stuff et authentification
 
 app.use('/api/stuff', stuffRoutes);
+
+app.use('/api/auth', userRoutes);
 
 
 module.exports = app;
